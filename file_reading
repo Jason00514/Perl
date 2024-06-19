@@ -1,0 +1,71 @@
+sample code
+---------start
+sub getCurrDate {
+    my $data;
+    my $date1 = 0;
+    open(CFH, "c:\\1.dat");
+
+    while ($data = <CFH>) {
+        my $flg1 = substr($data, 0, 2);
+        if ($flg1 eq '01') {
+            $date1 = substr($data, 42, 6);
+            last;
+        }
+    }
+    close(CFH);
+    return $date1;
+}
+-------end
+
+[open(my $fh, '<', 'c:\\1.dat')] 
+Reading and Printing Each Line
+---------start
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+# Open the file for reading
+open(my $fh, '<', 'c:\\1.dat') or die "Could not open file 'c:\\1.dat' $!";
+
+# Loop to read each line from the file
+while (my $line = <$fh>) {
+    chomp $line;  # Remove newline character at the end of the line
+    print "Line: $line\n";  # Print the line
+}
+
+# Close the file
+close($fh);
+
+---------end
+
+open(my $fh, '<', 'c:\\1.dat') or die "Could not open file 'c:\\1.dat' $!";
+This line opens the file c:\1.dat for reading. The file handle is $fh.
+The or die "Could not open file 'c:\\1.dat' $!"; part ensures the script dies with an error message if the file cannot be opened.
+Reading and Processing Each Line:
+
+
+while (my $line = <$fh>) {
+    chomp $line;  # Remove newline character
+    print "Line: $line\n";  # Print the line
+}
+<$fh> reads the next line from the file.
+chomp $line; removes the newline character from the end of the line.
+print "Line: $line\n"; prints the line to the console.
+
+
+close($fh);
+This line closes the file handle $fh.
+This example demonstrates the concept of reading a file line by line (getting file data one by one) and processing each line as needed.
+
+[what is the using of "<" in open(my $fh, '<', 'c:\1.dat')]
+symbol in the open function in Perl specifies the mode in which the file is being opened. 
+In this context, the < symbol indicates that the file is being opened for reading. Here’s a detailed explanation:
+
+File Mode Symbols in Perl
+<: Read mode. Opens the file for reading. This is the default mode if no other mode is specified.
+>: Write mode. Opens the file for writing. If the file does not exist, it will be created. If the file exists, it will be truncated (cleared) before writing.
+>>: Append mode. Opens the file for appending. If the file does not exist, it will be created. If the file exists, data will be written at the end of the file without truncating it.
++<: Read/write mode. Opens the file for both reading and writing without truncating the file.
++>: Read/write mode. Opens the file for both reading and writing, and truncates the file to zero length.
++>>: Read/append mode. Opens the file for both reading and appending.
+Example Usage
